@@ -1,10 +1,7 @@
 package com.example.employee_api.web;
 
 import com.example.employee_api.model.Employee;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -28,11 +25,18 @@ public class EmployeeController {
         return EMPLOYEES;
     }
 
+
     // 2) GET /employees/city/{city} → returns employees in a given city
     @GetMapping("/city/{city}")
     public List<Employee> getEmployeesByCity(@PathVariable String city) {
         return EMPLOYEES.stream().filter(e ->e.getCity().equalsIgnoreCase(city)).collect(Collectors.toList());
 }
+    // 3) POST
+    @PostMapping
+    public Employee addEmployee(@RequestBody Employee employee){
+        EMPLOYEES.add(employee);
+        return employee;
+    }
 }
 
 
